@@ -17,15 +17,6 @@ int main()
 	cout << "B:\n";
 	funcExp(strList, 6);
 
-
-	if ("C" > "A")
-	{
-		cout << "True";
-	}
-	else
-	{
-		cout << "False";
-	}
 }
 
 
