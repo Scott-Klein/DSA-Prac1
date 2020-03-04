@@ -1,9 +1,7 @@
-// Prac1.2.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
 #include <time.h>
-
+#include <vector>
 using namespace std;
 
 #define nine 9
@@ -11,30 +9,34 @@ void Setup();
 void GenerateRandomPositions(int randomPositions[]);
 int GetNewRandom();
 void WriteToArray(int arr[], int randomPositions[]);
-void PrintArray(int arr[]);
+void PrintArray(vector<int[10]> results);
 int OccurancesOf(int numChecked, int arr[]);
 
-static int randomCalls = 0;
+static int randomCalls;
 static int occuredNumbers[6] = { 0,0,0,0,0,0 };
 static int occuredNumberIndex = 0;
 
 int main()
 {
-	int arr[9] = { 0,0,0,0,0,0,0,0,0 };
+	vector<int[10]> allResults;
+
+	randomCalls = 0;
+	int arr[10] = { 0,0,0,0,0,0,0,0,0,0 };
 	int randomPositions[6] = { 0,0,0,0,0,0 };
 	GenerateRandomPositions(randomPositions);
 	WriteToArray(arr, randomPositions);
-	PrintArray(arr);
+	arr[9] = randomCalls;
+	allResults.push_back(arr);
+
+	PrintArray(allResults);
 }
 
 void GenerateRandomPositions(int positions[])
 {
 	Setup();
-
 	for (int i = 0; i < 6; i++)
 	{
 		positions[i] = GetNewRandom();
-		
 	}
 }
 
@@ -43,7 +45,7 @@ int GetNewRandom()
 	int randomNum;
 	do
 	{
-		randomNum = rand() % 9;
+		randomNum = rand() % 9 + 1;
 		randomCalls++;
 	} while (OccurancesOf(randomNum, occuredNumbers) > 0);
 
@@ -61,14 +63,20 @@ void WriteToArray(int arr[], int randomPositions[])
 	}
 }
 
-void PrintArray(int arr[])
+void PrintArray(vector<int[10]> results)
 {
-	for (int i = 0; i < nine; i++)
+	for (int i = 0; i < results.size(); i++)
 	{
-		cout << arr[i] << " ";
+		int* arr = results[i];
+
+		for (int j = 0; j < 9; j++)
+		{
+			cout << arr[i] << " ";
+		}
+		cout << "Random calls: " << arr[9] << endl;
 	}
-	cout << "Random calls: " << randomCalls << endl;
 }
+
 
 int OccurancesOf(int numChecked, int arr[])
 {
