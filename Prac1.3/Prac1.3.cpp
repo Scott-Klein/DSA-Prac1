@@ -6,34 +6,40 @@ using namespace std;
 
 #define nine 9
 void Setup();
-void GenerateRandomPositions(int randomPositions[]);
+void GenerateRandomPositions(vector<int>& randomPositions);
 int GetNewRandom();
-void WriteToArray(int arr[], int randomPositions[]);
-void PrintArray(vector<int[10]> results);
-int OccurancesOf(int numChecked, int arr[]);
+void WriteToArray(vector<int>& arr, vector<int>& randomPositions);
+void PrintArray(vector<vector<int>> results);
+void PrintVector(vector<int> result);
+int OccurancesOf(int numChecked, vector<int> arr);
 
 static int randomCalls;
-static int occuredNumbers[6] = { 0,0,0,0,0,0 };
-static int occuredNumberIndex = 0;
+static vector<int> occuredNumbers;
+static int occuredNumberIndex;
 
 int main()
 {
-	vector<int[10]> allResults;
-
-	randomCalls = 0;
-	int arr[10] = { 0,0,0,0,0,0,0,0,0,0 };
-	int randomPositions[6] = { 0,0,0,0,0,0 };
-	GenerateRandomPositions(randomPositions);
-	WriteToArray(arr, randomPositions);
-	arr[9] = randomCalls;
-	allResults.push_back(arr);
+	vector<vector<int>> allResults;
+	Setup();
+	for (int i = 0; i < 10; i++)
+	{
+		randomCalls = 0;
+		occuredNumbers = { -1,-1,-1,-1,-1,-1 };
+		occuredNumberIndex = 0;
+		vector<int> arr = { 0,0,0,0,0,0,0,0,0,0 };
+		vector<int> randomPositions = { 0,0,0,0,0,0 };
+		GenerateRandomPositions(randomPositions);
+		WriteToArray(arr, randomPositions);
+		arr[9] = randomCalls;
+		allResults.push_back(arr);
+	}
 
 	PrintArray(allResults);
 }
 
-void GenerateRandomPositions(int positions[])
+void GenerateRandomPositions(vector<int>& positions)
 {
-	Setup();
+
 	for (int i = 0; i < 6; i++)
 	{
 		positions[i] = GetNewRandom();
@@ -45,7 +51,7 @@ int GetNewRandom()
 	int randomNum;
 	do
 	{
-		randomNum = rand() % 9 + 1;
+		randomNum = rand() % 9;
 		randomCalls++;
 	} while (OccurancesOf(randomNum, occuredNumbers) > 0);
 
@@ -55,7 +61,7 @@ int GetNewRandom()
 }
 
 
-void WriteToArray(int arr[], int randomPositions[])
+void WriteToArray(vector<int>& arr, vector<int>& randomPositions)
 {
 	for (int i = 0; i < 6; i++)
 	{
@@ -63,22 +69,26 @@ void WriteToArray(int arr[], int randomPositions[])
 	}
 }
 
-void PrintArray(vector<int[10]> results)
+void PrintArray(vector<vector<int>> results)
 {
 	for (int i = 0; i < results.size(); i++)
 	{
-		int* arr = results[i];
+		PrintVector(results[i]);
+		cout << "Random calls: " << results[i][9] << endl;
+	}
 
-		for (int j = 0; j < 9; j++)
-		{
-			cout << arr[i] << " ";
-		}
-		cout << "Random calls: " << arr[9] << endl;
+}
+
+void PrintVector(vector<int> result)
+{
+	for (int i = 0; i < result.size()-1; i++)
+	{
+		cout << result[i] << " ";
 	}
 }
 
 
-int OccurancesOf(int numChecked, int arr[])
+int OccurancesOf(int numChecked, vector<int> arr)
 {
 	int occurances = 0;
 	for (int i = 0; i < 6; i++)
