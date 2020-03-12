@@ -23,8 +23,9 @@ int main()
 
 
 
-//For numbers prints the largest number, then smallest
-// For strings prints the latest word in dictionary order, then the earliest.
+// For numbers prints the largest number, then smallest
+// For strings prints the latest word in lexical order, then the earliest.
+
 template <class Type>
 void funcExp(Type list[], int size) 
 { 
