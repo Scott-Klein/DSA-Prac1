@@ -15,15 +15,18 @@ void PrintArray(int arr[]);
 int OccurancesOf(int numChecked, int arr[]);
 
 static int randomCalls = 0;
-static int occuredNumbers[6] = { 0,0,0,0,0,0 };
+static int candidatePositions[6] = { 0,0,0,0,0,0 };
 static int occuredNumberIndex = 0;
 
 int main()
 {
 	int arr[9] = { 0,0,0,0,0,0,0,0,0 };
 	int randomPositions[6] = { 0,0,0,0,0,0 };
+
 	GenerateRandomPositions(randomPositions);
+
 	WriteToArray(arr, randomPositions);
+
 	PrintArray(arr);
 }
 
@@ -45,9 +48,9 @@ int GetNewRandom()
 	{
 		randomNum = rand() % 9;
 		randomCalls++;
-	} while (OccurancesOf(randomNum, occuredNumbers) > 0);
+	} while (OccurancesOf(randomNum, candidatePositions) > 0);
 
-	occuredNumbers[occuredNumberIndex++] = randomNum;
+	candidatePositions[occuredNumberIndex++] = randomNum;
 
 	return randomNum;
 }

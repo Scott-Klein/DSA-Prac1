@@ -14,7 +14,7 @@ void PrintVector(vector<int> result);
 int OccurancesOf(int numChecked, vector<int> arr);
 
 static int randomCalls;
-static vector<int> occuredNumbers;
+static vector<int> candidatePositions;
 static int occuredNumberIndex;
 
 int main()
@@ -23,11 +23,14 @@ int main()
 	Setup();
 	for (int i = 0; i < 10; i++)
 	{
+
 		randomCalls = 0;
-		occuredNumbers = { -1,-1,-1,-1,-1,-1 };
+		candidatePositions = { -1,-1,-1,-1,-1,-1 };
 		occuredNumberIndex = 0;
 		vector<int> arr = { 0,0,0,0,0,0,0,0,0,0 };
 		vector<int> randomPositions = { 0,0,0,0,0,0 };
+
+
 		GenerateRandomPositions(randomPositions);
 		WriteToArray(arr, randomPositions);
 		arr[9] = randomCalls;
@@ -53,9 +56,9 @@ int GetNewRandom()
 	{
 		randomNum = rand() % 9;
 		randomCalls++;
-	} while (OccurancesOf(randomNum, occuredNumbers) > 0);
+	} while (OccurancesOf(randomNum, candidatePositions) > 0);
 
-	occuredNumbers[occuredNumberIndex++] = randomNum;
+	candidatePositions[occuredNumberIndex++] = randomNum;
 
 	return randomNum;
 }

@@ -13,18 +13,17 @@ void PrintArray(vector<vector<int>> results);
 void PrintVector(vector<int> result);
 
 static int randomCalls;
-static vector<int> occuredNumbers;
+static vector<int> candidatePositions;
+vector<int> arr;
+vector<int> randomPositions;
 
 int main()
 {
+	srand(time(NULL));
 	vector<vector<int>> allResults;
-	Setup();
 	for (int i = 0; i < 10; i++)
 	{
-		randomCalls = 0;
-		occuredNumbers = { 0,1,2,3,4,5,6,7,8 };
-		vector<int> arr = { 0,0,0,0,0,0,0,0,0,0 };
-		vector<int> randomPositions = { 0,0,0,0,0,0 };
+		Setup();
 		GenerateRandomPositions(randomPositions);
 		WriteToArray(arr, randomPositions);
 		arr[9] = randomCalls;
@@ -46,10 +45,10 @@ int GetNewRandom()
 {
 	int randomNum;
 
-	randomNum = rand() % occuredNumbers.size();
+	randomNum = rand() % candidatePositions.size();
 
-	int result = occuredNumbers[randomNum];
-	occuredNumbers.erase(occuredNumbers.begin() + randomNum);
+	int result = candidatePositions[randomNum];
+	candidatePositions.erase(candidatePositions.begin() + randomNum);
 
 	randomCalls++;
 
@@ -87,5 +86,9 @@ void PrintVector(vector<int> result)
 
 void Setup()
 {
-	srand(time(NULL));
+
+	arr = { 0,0,0,0,0,0,0,0,0,0 };
+	randomPositions = { 0,0,0,0,0,0 };
+	candidatePositions = { 0,1,2,3,4,5,6,7,8 };
+	randomCalls = 0;
 }
